@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\DepartmentExport;
+use App\Imports\DepartmentImport;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -108,10 +109,22 @@ class DepartmentController extends Controller
         return redirect('/department');
     }
 
+    public function import(Request $request)
+    {
+        Excel::import(new DepartmentImport, $request->file('file'));
+
+        return redirect('/department')->with('success', 'File Imported Sucessfully!!😀');
+    }
+
     public function export(Request $request)
     {
         $ids = explode(',', $request->input('department_ids'));
 
         return Excel::download(new DepartmentExport($ids), 'departments.xlsx');
+    }
+
+    public function upload()
+    {
+        return view('department.import');
     }
 }

@@ -5,21 +5,30 @@
 <div class="container mt-3 h-100">
     <div class="top-bar d-flex align-items-center justify-content-between w-100">
         <h4>LIST OF AVAILABLE STUDENTS</h4>
-        <form id="export" action="/student-export" method="GET">
-            @csrf
-            <input type="hidden" name="student_ids" id="student_ids" value=""/>
-            <button form="export" type="submit" id="export-rows"  class="btn btn-primary">Export</button>
-            <a href="/students/create" class="btn btn-primary">CREATE</a>
-        </form>
+        <div class="box d-flex">
+            <a href="/import/students" class="btn btn-primary me-3">Import</a>
+            <form id="export" action="/student-export" method="GET">
+                @csrf
+                <input type="hidden" name="student_ids" id="student_ids" value=""/>
+                <button form="export" type="submit" id="export-rows"  class="btn btn-primary me-3">Export</button>
+                <a href="/students/create" class="btn btn-primary">CREATE</a>
+            </form>
+        </div>
+
     </div>
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{session('success')}}
+        </div>
+    @endif
     <table class="table mt-3 table-striped">
         <thead>
             <th>
                 <input type="checkbox" class="form-check-input" id="select-all-checkbox">
             </th>
-            <th>Student Name</th>
-            <th>Student Id</th>
-            <th>Student Email</th>
+            <th>Name</th>
+            <th>Id</th>
+            <th>Email</th>
             <th>Department</th>
             <th>Status</th>
             <th>Actions</th>

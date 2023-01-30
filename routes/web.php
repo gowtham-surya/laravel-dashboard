@@ -37,7 +37,11 @@ Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showRese
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm']);
 
 Route::resource('/department', DepartmentController::class);
+Route::get('/import/department', [DepartmentController::class, 'upload']);
+Route::post('/department-import', [DepartmentController::class, 'import']);
 Route::get('/department-export', [DepartmentController::class, 'export']);
 
 Route::resource('/students', StudentController::class);
+Route::get('/import/students', [StudentController::class, 'upload']);
+Route::post('/student-import', [StudentController::class, 'import']);
 Route::get('/student-export', [StudentController::class, 'export']);

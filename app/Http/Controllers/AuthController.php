@@ -30,7 +30,7 @@ class AuthController extends Controller
             return redirect('dashboard')->withSuccess('Login Success');
         }else
         {
-            return redirect('login')->withSuccess('Invalid Credentials');
+            return redirect('login')->with('error','Invalid Credentials');
         }
     }
 
@@ -68,7 +68,7 @@ class AuthController extends Controller
             return view('dashboard');
         }
 
-        return redirect("login")->withSuccess('You are not allowed to access Dashboard');
+        return redirect("login")->with('error', 'You are not allowed to access Dashboard');
     }
 
     /* Function for signout current user. */

@@ -6,6 +6,7 @@ use App\Models\Student;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Exports\StudentsExport;
+use App\Imports\StudentsImport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
@@ -112,10 +113,22 @@ class StudentController extends Controller
         return redirect('/students');
     }
 
+    public function import(Request $request)
+    {
+        Excel::import(new StudentsImport, $request->file('file'));
+
+        return redirect('/students')->with('success', 'File Imported Sucessfully!!😀');
+    }
+
     public function export(Request $request)
     {
         $ids = explode(',', $request->input('student_ids'));
 
         return Excel::download(new StudentsExport($ids), 'students.xlsx');
+    }
+
+    public function upload()
+    {
+        return view('student.import');
     }
 }
